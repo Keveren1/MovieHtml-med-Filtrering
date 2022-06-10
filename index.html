@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,29 +11,39 @@
     <script src="https://unpkg.com/vue@next"></script>
     <title>Habibi top elskede</title>
 </head>
+
 <body>
     <div id="app">
+        <button class="btn btn-outline-primary" v-on:click="GetAllData()">GetAll</button>
         <input v-model.lazy="filterLength" placeholder="Max movie length" type="text">
-        <button class="btn btn-outline-primary" v-on:click="GetAllData()" >GetAll</button>
+        {{errorMessage}}
         <table class="table table-dark table-striped">
+            <template v-if="dataArray && dataArray.length > 0">
             <tr>
                 <th>Id</th>
                 <th>Movie</th>
                 <th>Lenght</th>
                 <th>Country Origin</th>
-            </tr>
-            <tr v-for="post in dataArray">
-                <td>{{post.id}}</td>
-                <td>{{post.movieName}}</td>
-                <td>{{post.lengthInMinutes}}</td>
-                <td>{{post.countryOfOrigin}}</td>
-            </tr>
+            </tr></template>
+            <template v-if="dataArray && dataArray.length > 0">
+                <tr v-for="post in dataArray">
+                    <td>{{post.id}}</td>
+                    <td>{{post.movieName}}</td>
+                    <td>{{post.lengthInMinutes}}</td>
+                    <td>{{post.countryOfOrigin}}</td>
+                </tr>
+            </template>
+            <template v-else>
+                <tr>
+                No movies were found
+                </tr>
+            </template>
         </table>
 
         <div>
-            <input  v-model="dataMovie.movieName" placeholder="Movie Name" type="text"> 
-            <input  v-model.number="dataMovie.lengthInMinutes" placeholder="Movie Length" type="text">
-            <input  v-model="dataMovie.countryOfOrigin" placeholder="Country" type="text">
+            <input v-model="dataMovie.movieName" placeholder="Movie Name" type="text">
+            <input v-model.number="dataMovie.lengthInMinutes" placeholder="Movie Length" type="text">
+            <input v-model="dataMovie.countryOfOrigin" placeholder="Country" type="text">
             <button v-on:click="addData()" class="btn btn-outline-success">Add new Movie</button>
             <div>{{addMessage}}</div>
         </div>
@@ -43,17 +54,19 @@
 
 
 
-    <script src="index.js"></script>
+        <script src="index.js"></script>
     </div>
 </body>
+
 </html>
 <style>
-    body{
+    body {
         height: 100vh;
         background: linear-gradient(248deg, rgb(210, 15, 15), rgb(207, 166, 166), teal);
         margin: 5px;
     }
-    input{
+
+    input {
         margin-right: 5px;
     }
 </style>
